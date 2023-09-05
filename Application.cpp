@@ -64,12 +64,12 @@ int main()
 	model = glm::scale(model, glm::vec3(1.75f, 1.25f, 1.0f));	// it's a bit too big for our scene, so scale it down
 	
 	Shader Model_shader;
-	Model_shader.Init("D:/C_Proj/The Cardroom/res/ShaderPrograms/Model.vs.txt", "D:/C_Proj/The Cardroom/res/ShaderPrograms/Model.fs.txt");
+	Model_shader.Init("res/ShaderPrograms/Model.vs.txt", "res/ShaderPrograms/Model.fs.txt");
 	Model_shader.use();	
 	Model_shader.setMatrix4fv("projection", projection);	
 	Model_shader.setMatrix4fv("view", view);
 	Model_shader.setMatrix4fv("model", model);	
-	Model Card_asset("D:/C_Proj/The Cardroom/res/Models/CardDeck2/CardDeck.FBX"); //2.5 scale works 400/300
+	Model Card_asset("res/Models/CardDeck2/CardDeck.FBX"); //2.5 scale works 400/300
 
 	Shader imageShader;
 	Shader textShader;
@@ -77,13 +77,13 @@ int main()
 	TextureImage tex_play_back2;
 	FreetypeRender Play_Screen_Text;
 
-	imageShader.Init("D:/C_Proj/The Cardroom/res/ShaderPrograms/shader.vs.txt", "D:/C_Proj/The Cardroom/res/ShaderPrograms/shader.fs.txt");
-	textShader.Init("D:/C_Proj/The Cardroom/res/ShaderPrograms/freetypeshader.vs.txt", "D:/C_Proj/The Cardroom/res/ShaderPrograms/freetypeshader.fs.txt");
+	imageShader.Init("res/ShaderPrograms/shader.vs.txt", "res/ShaderPrograms/shader.fs.txt");
+	textShader.Init("res/ShaderPrograms/freetypeshader.vs.txt", "res/ShaderPrograms/freetypeshader.fs.txt");
 	
-	tex_play_back = TextureImage("D:/C_Proj/The Cardroom/res/Textures/CombinedImage_button1.jpg", 1);
+	tex_play_back = TextureImage("res/Textures/CombinedImage_button1.jpg", 1);
 	tex_play_back.bind();
 	
-	tex_play_back2 = TextureImage("D:/C_Proj/The Cardroom/res/Textures/CombinedImage_button2.jpg", 4);
+	tex_play_back2 = TextureImage("res/Textures/CombinedImage_button2.jpg", 4);
 	tex_play_back2.bind();
 
 
@@ -105,7 +105,7 @@ int main()
 	textShader.use();
 	textShader.setMatrix4fv("projection", projection);
 
-	Play_Screen_Text = FreetypeRender("D:/C_Proj/The Cardroom/res/Fonts/Antonio-Bold.ttf", 0, 96);
+	Play_Screen_Text = FreetypeRender("res/Fonts/Antonio-Bold.ttf", 0, 96);
 	Play_Screen_Text.load();
 	std::string ranknames[] = {"High Card","One Pair","Two Pair","Three of a kind","Straight","Flush" ,"Full House","Four of a Find","Straight Flush" };
 
@@ -127,9 +127,9 @@ int main()
 	foldButton.Init("FOLD", 700.0f, 20.0f, Play_Screen_Text, 0.5f);
 	retryButton.Init("RETRY?", 350.0f, 250.0f, Play_Screen_Text, 0.5f);
 
-	//Textbox texbox("D:/C_Proj/The Cardroom/res/ButtonBackground/whitePlain.jpg",2, 300.0f, -215.0f, 0.0f, 90, 15, 1);
-	//Textbox texbox("D:/C_Proj/The Cardroom/res/ButtonBackground/lemonYellow.jpg",2, 300.0f, -215.0f, 0.0f, 90, 15, 1);
-	Textbox texbox("D:/C_Proj/The Cardroom/res/ButtonBackground/whitePlain.jpg","D:/C_Proj/The Cardroom/res/ButtonBackground/lightGreenPlain.jpg",2,3, 300.0f, -215.0f, 0.0f, 90, 15, 1);
+	//Textbox texbox("res/ButtonBackground/whitePlain.jpg",2, 300.0f, -215.0f, 0.0f, 90, 15, 1);
+	//Textbox texbox("res/ButtonBackground/lemonYellow.jpg",2, 300.0f, -215.0f, 0.0f, 90, 15, 1);
+	Textbox texbox("res/ButtonBackground/whitePlain.jpg","res/ButtonBackground/lightGreenPlain.jpg",2,3, 300.0f, -215.0f, 0.0f, 90, 15, 1);
 	
 	
 
@@ -139,7 +139,7 @@ int main()
 	
 	state = init_e;
 	
-	irrklang::ISound* title_theme = SoundEngine->play2D("D:/C_Proj/The Cardroom/res/Music/TitleTheme.wav", true, true, true, irrklang::ESM_AUTO_DETECT, true);
+	irrklang::ISound* title_theme = SoundEngine->play2D("res/Music/TitleTheme.wav", true, true, true, irrklang::ESM_AUTO_DETECT, true);
 	title_theme->setVolume(0.15f);
 	title_theme->setIsPaused(false);
 
@@ -216,7 +216,7 @@ int main()
 				Card_asset.animate_angles[flop] = Card_asset.animate_angles[turn] = Card_asset.animate_angles[river] = Card_asset.animate_angles[p_cards] = Card_asset.animate_angles[c_cards] = 0.0f;
 				animate_state = true;
 				state++;
-
+				
 			}
 
 			else if (state == pre_flop_e)
@@ -252,7 +252,9 @@ int main()
 					if (poker.all_in != -1 && ((poker.ring_players[0].stack==0&&poker.ring_players[0].amount_bet<= poker.ring_players[1].amount_bet)||
 						(poker.ring_players[1].stack == 0 && poker.ring_players[1].amount_bet <= poker.ring_players[0].amount_bet))&&poker.pot>0)
 					{
-						state++;
+						//std::cout << "State: " << state << std::endl;
+						if(state== pre_flop_rob_e)
+							state++;
 						poker.rob_init = 0;
 						
 						continue;
@@ -290,13 +292,14 @@ int main()
 					poker.rob_init = 1;
 					poker.amt_raised += 0;
 					poker.act_first = poker.button_other;
-					if (poker.all_in == -1 || poker.all_in == 10)//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
+					if (poker.all_in == -1 )//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
 					{
 						
 						poker.round_of_betting(texbox, state);
 						
 					}
 					poker.cards_on_table.emplace_back(poker.deck[7]);
+					std::cout << "No. of Cards Turn: " << poker.cards_on_table.size() << std::endl;;
 					std::cout << "Table Cards: ";
 					for (int z = 0; z < poker.cards_on_table.size(); z++)
 					{
@@ -308,7 +311,9 @@ int main()
 				if (poker.all_in != -1 && ((poker.ring_players[0].stack == 0 && poker.ring_players[0].amount_bet <= poker.ring_players[1].amount_bet) ||
 					(poker.ring_players[1].stack == 0 && poker.ring_players[1].amount_bet <= poker.ring_players[0].amount_bet)) && poker.pot > 0)
 				{
-					state++;
+					std::cout << "State: " << state << std::endl;
+					if(state== flop_rob_e)
+						state++;
 					poker.rob_init = 0;
 					
 					continue;
@@ -343,25 +348,33 @@ int main()
 					poker.rob_init = 1;
 					poker.amt_raised += 0;
 					poker.act_first = poker.button_other;
-					if (poker.all_in == -1 || poker.all_in == 10)//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
-					{
-						
-						poker.round_of_betting(texbox, state);
-					}
+
+
 					poker.cards_on_table.emplace_back(poker.deck[8]);
+					std::cout << "No. of Cards River: " << poker.cards_on_table.size() << std::endl;;
 					std::cout << "Table Cards: ";
 					for (int z = 0; z < poker.cards_on_table.size(); z++)
 					{
 						std::cout << std::get<0>(poker.cards_on_table[z]) << " " << std::get<1>(poker.cards_on_table[z]) << " ";
 					}
-					
+
 					std::cout << std::endl;
+
+
+					if (poker.all_in == -1)//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
+					{
+						
+						poker.round_of_betting(texbox, state);
+					}
+					
 
 				}
 				if (poker.all_in != -1 && ((poker.ring_players[0].stack == 0 && poker.ring_players[0].amount_bet <= poker.ring_players[1].amount_bet) ||
 					(poker.ring_players[1].stack == 0 && poker.ring_players[1].amount_bet <= poker.ring_players[0].amount_bet)) && poker.pot > 0)
 				{
-					state++;
+					std::cout << "State: " << state << std::endl;
+					if(state== turn_rob_e)
+						state++;
 					poker.rob_init = 0;
 					
 					continue;
@@ -396,7 +409,8 @@ int main()
 					poker.rob_init = 1;
 					poker.amt_raised += 0;
 					poker.act_first = poker.button_other;
-					if (poker.all_in == -1 || poker.all_in == 10)//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
+					//std::cout << "No. of Cards: " << poker.cards_on_table.size() << std::endl;;
+					if (poker.all_in == -1 )//weird edge case where the big blind is all in and has less than 1bb but, greater than 1sb, but still have to ask the small blind for call or fold
 					{
 						
 						poker.round_of_betting(texbox, state);
@@ -406,7 +420,9 @@ int main()
 				if (poker.all_in != -1 && ((poker.ring_players[0].stack == 0 && poker.ring_players[0].amount_bet <= poker.ring_players[1].amount_bet) ||
 					(poker.ring_players[1].stack == 0 && poker.ring_players[1].amount_bet <= poker.ring_players[0].amount_bet)) && poker.pot > 0)
 				{
-					state++;
+					std::cout << "State: " << state << std::endl;
+					if(state== river_rob_e)
+						state++;
 					poker.rob_init = 0;
 					
 					continue;

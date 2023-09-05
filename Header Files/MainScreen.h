@@ -77,8 +77,8 @@ public:
 		
 		
 
-		shaderBasic.Init("D:/C_Proj/The Cardroom/res/ShaderPrograms/shader.vs.txt", "D:/C_Proj/The Cardroom/res/ShaderPrograms/shader.fs.txt");
-		shaderText.Init("D:/C_Proj/The Cardroom/res/ShaderPrograms/freetypeshader.vs.txt", "D:/C_Proj/The Cardroom/res/ShaderPrograms/freetypeshader.fs.txt");
+		shaderBasic.Init("res/ShaderPrograms/shader.vs.txt", "res/ShaderPrograms/shader.fs.txt");
+		shaderText.Init("res/ShaderPrograms/freetypeshader.vs.txt", "res/ShaderPrograms/freetypeshader.fs.txt");
 		
 
 		
@@ -86,7 +86,7 @@ public:
 		//verBuf = VertexBuffer(vertices, sizeof(vertices));
 		//indBuf = IndexBuffer(indices, 6);//six refer to the no of unsigned int, multiplication is happening in the IndexBuffer class
 
-		tex_home_back= TextureImage("D:/C_Proj/The Cardroom/res/Textures/Pokemon.jpg", 1);
+		tex_home_back= TextureImage("res/Textures/Pokemon.jpg", 1);
 		tex_home_back.bind();//binds to slot zero if no no is mentioned
 		
 
@@ -116,7 +116,7 @@ public:
 
 
 
-		Main_Screen_Text= FreetypeRender("D:/C_Proj/The Cardroom/res/Fonts/Antonio-Bold.ttf", 0, 96);
+		Main_Screen_Text= FreetypeRender("res/Fonts/Antonio-Bold.ttf", 0, 96);
 		Main_Screen_Text.load();
 	
 

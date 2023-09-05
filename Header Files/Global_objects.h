@@ -3,12 +3,12 @@
 #include<string>
 #include<random>
 extern irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
-//extern irrklang::ISound* title_theme = SoundEngine->play2D("D:/C_Proj/The Cardroom/res/Music/TitleTheme.wav", true, false, true, irrklang::ESM_AUTO_DETECT, true);
-//extern irrklang::ISoundSource* title_theme = SoundEngine->addSoundSourceFromFile("D:/C_Proj/The Cardroom/res/Music/click.mp3");
-extern irrklang::ISoundSource* click_sound = SoundEngine->addSoundSourceFromFile("D:/C_Proj/The Cardroom/res/Music/click.mp3");
-extern irrklang::ISoundSource* flip_sound = SoundEngine->addSoundSourceFromFile("D:/C_Proj/The Cardroom/res/Music/flipcard.mp3");
-extern irrklang::ISoundSource* win_sound = SoundEngine->addSoundSourceFromFile("D:/C_Proj/The Cardroom/res/Music/win_sound_effect.mp3");
-extern irrklang::ISoundSource* loss_sound = SoundEngine->addSoundSourceFromFile("D:/C_Proj/The Cardroom/res/Music/loss_sound_effect.mp3");
+//extern irrklang::ISound* title_theme = SoundEngine->play2D("res/Music/TitleTheme.wav", true, false, true, irrklang::ESM_AUTO_DETECT, true);
+//extern irrklang::ISoundSource* title_theme = SoundEngine->addSoundSourceFromFile("res/Music/click.mp3");
+extern irrklang::ISoundSource* click_sound = SoundEngine->addSoundSourceFromFile("res/Music/click.mp3");
+extern irrklang::ISoundSource* flip_sound = SoundEngine->addSoundSourceFromFile("res/Music/flipcard.mp3");
+extern irrklang::ISoundSource* win_sound = SoundEngine->addSoundSourceFromFile("res/Music/win_sound_effect.mp3");
+extern irrklang::ISoundSource* loss_sound = SoundEngine->addSoundSourceFromFile("res/Music/loss_sound_effect.mp3");
 
 
 

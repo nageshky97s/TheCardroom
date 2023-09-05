@@ -63,8 +63,10 @@ public:
 		button_pos = 1;
 		button_other = 0;
 		
-		//Computer.stack = 40;
-		//User.stack = 960;
+		//Computer.stack = 980;
+		//User.stack = 20;
+		//Computer.stack = 20;
+		//User.stack = 980;
 		Computer.stack = User.stack = bigblind * 20;
 
 		for (unsigned int i = 0; i < 4; i++)
@@ -98,13 +100,17 @@ public:
 		button_pos = 1;
 		button_other = 0;
 		ring_players[0].stack = ring_players[1].stack = bigblind * 20;
+		//ring_players[0].stack = 980;
+		//ring_players[1].stack = 20;
+		//ring_players[0].stack = 20;
+		//ring_players[1].stack = 980;
 		both_checked = 0;
 		raised = 0;
 		amt_raised = 0;
 		amt_called = 0;
 		amt_input = 0;
 		rob_init = 0;
-		ring_players[0].amount_bet = ring_players[1].amount_bet = 0;
+		
 
 
 		if(cards_on_table.size()!=0)
