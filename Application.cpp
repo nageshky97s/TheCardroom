@@ -599,7 +599,7 @@ int main()
 				{
 					Card_asset.animate_cpu_cards(Model_shader, true, poker, state);
 				
-					Play_Screen_Text.RenderText(textShader, ranknames[poker.cpu_rank-1], 230.0f, 550.0f, 0.20f, glm::vec3(1.0f, 1.0f, 0.0f));
+					Play_Screen_Text.RenderText(textShader, ranknames[poker.cpu_rank-1], 200.0f, 550.0f, 0.20f, glm::vec3(1.0f, 1.0f, 0.0f));
 					Model_shader.use();
 
 				}				
