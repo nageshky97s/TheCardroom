@@ -135,7 +135,7 @@ public:
 		pot = 0;
 
 
-		if (ring_players[button_pos].stack < smallblind)
+		if (ring_players[button_pos].stack <= smallblind)
 		{
 			all_in = button_pos;
 			pot = ring_players[button_pos].stack * 2;
@@ -145,7 +145,7 @@ public:
 
 
 		}
-		else if (ring_players[button_other].stack < bigblind) {
+		else if (ring_players[button_other].stack <= bigblind) {
 
 			//when the remaining stack is less 1bb and 1sb
 			if (ring_players[button_other].stack < smallblind)
